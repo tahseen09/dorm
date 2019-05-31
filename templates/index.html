@@ -1,0 +1,15 @@
+{% load static %}
+<html>
+    <table style="width:100%">
+        <tr>
+            <th>Bed Number</th>
+            <th>Name</th> 
+        </tr>
+    {% for i in f %}
+        <tr>
+            <td>{{i.bed}}</td>
+            <td>{{i.name}}</td> 
+        </tr>
+    {% endfor %}
+    </table>
+</html>
