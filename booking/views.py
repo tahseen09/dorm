@@ -27,7 +27,6 @@ def checkin(request):
         
         if t == "out":
             bed = request.POST.get("bed")
-            print(bed)
             c = customer.objects.filter(bed=bed, present=True).update(present=False)
             if c:
                 msg = "Customer with bed number:"+bed+" checked out"
