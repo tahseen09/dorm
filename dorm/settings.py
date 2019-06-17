@@ -125,7 +125,7 @@ LOGOUT_REDIRECT_URL = 'home'
 
 STATIC_URL = '/static/'
 
-#in case of dev, uncomment the below line
+# in case of dev, uncomment the below line
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )

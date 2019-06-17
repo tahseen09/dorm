@@ -10,5 +10,5 @@ class customer(models.Model):
     name = models.CharField(max_length=30,blank=True)
     #image = models.ImageField(blank=True)
     present = models.BooleanField(default=False, blank=False)
-    checkout_date = models.TimeField(blank=True, null=True, default=datetime.datetime.now().time())
+    checkout_date = models.DateField(blank=True, null=True, default=datetime.datetime.now) #changed to datefield from timefield
     checkout_time = models.TimeField(blank=True, null=True, default=datetime.datetime.now().time())
