@@ -115,8 +115,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'dashboard'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -125,7 +125,7 @@ LOGOUT_REDIRECT_URL = 'home'
 
 STATIC_URL = '/static/'
 
-#in case of dev, uncomment the below line
+# in case of dev, uncomment the below line
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )

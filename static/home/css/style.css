@@ -172,7 +172,7 @@ box-shadow: -5px 0px 6px 0px rgba(82,82,82,0.52);
 
 .modal-body{background-image:url('http://res.cloudinary.com/rinma/image/upload/v1500489833/Airplane-flying-desktop-pictureproba2_rlcced.jpg');
 background-size:cover;
-z-inedx:4;}
+z-index:4;}
 
 em{display:none;}
 

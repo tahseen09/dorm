@@ -1,18 +1,132 @@
 {% load static %}
-<html>
-    <table style="width:100%">
-        <tr>
-            <th>Bed Number</th>
-            <th>Name</th> 
-        </tr>
-    {% for i in f %}
-        <tr>
-            <td>{{i.bed}}</td>
-            <td>{{i.name}}</td> 
-        </tr>
-    {% endfor %}
-    </table>
-    <br><br><br>
-      <p><a href="{% url 'logout' %}">logout</a></p><br>
-      <p><a href="{% url 'checkin' %}">Check-In</a></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>AV DORMITORY</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="{% static 'dash/images/icons/favicon.ico' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/vendor/bootstrap/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/vendor/animate/animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/vendor/select2/select2.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/font-awesome.min.css' %}">
+</head>
+<body>
+	<div class="limiter">
+	<h1 style="text-align: center; color: #ffc107; background-color: #000; border:double;"><i class="fa fa-cust" style="font-size:48px;color:#ffc107;"></i>&nbsp;AV DORMITORY</h1>
+		<div class="container-table100">
+			<a href="{% url 'checkin' %}">
+			<button class="btn btn-special">
+				CHECK IN
+				<div class="fill-one"></div>
+			</button>
+		</a>
+			<p>&nbsp;&nbsp;&nbsp;</p>
+			<a href="{% url 'checkin' %}">
+			<button class="btn btn-special">
+				CHECK OUT
+				<div class="fill-one"></div>
+			</button>
+		</a>
+		<p>&nbsp;&nbsp;&nbsp;</p>
+			<a href="{% url 'logout' %}"><button class="btn btn-special">
+				LOGOUT
+				<div class="fill-one"></div>
+			</button></a>
+			<div class="wrap-table100">
+		<form style="color: white;" method="POST" action="">
+				{% csrf_token %}
+				&nbsp;<br>
+				
+				Start DATE: {% if start_date %}{{start_date}}{% endif %} <input type="date" name="startdate" placeholder="YYYY-MM-DD" style=" width: 200px; height: 60px; border-radius: 5px; text-align: center;">
+				<br>
+				End DATE: {% if end_date %}{{end_date}}{% endif %}<input type="date" name="enddate" placeholder="YYYY-MM-DD" style=" width: 200px; height: 60px; border-radius: 5px; text-align: center;">
+				<br>
+				<button class="btn btn-special" type="submit">
+				SEARCH
+				<div class="fill-one"></div>
+				</button>
+		</form>
+			<h1>&nbsp;</h1>
+				<div class="table100 ver1">
+					<div class="table100-firstcol">
+						<table>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column1">cust Number</th>
+								</tr>
+							</thead>
+							<tbody>
+							{% if cust %}
+								{% for b in cust %}
+								<tr class="row100 body">
+									<td class="cell100 column1">{{b.bed}}</td>
+								</tr>
+								{% endfor %}
+							{% endif %}
+							</tbody>
+						</table>
+					</div>
+					<div class="wrap-table100-nextcols js-pscroll">
+						<div class="table100-nextcols">
+							<table>
+								<thead>
+									<tr class="row100 head">
+										<th class="cell100 column2">Checkin Date/Time</th>
+										<th class="cell100 column3">Name</th>
+										<th class="cell100 column4">Phone Number</th>
+										<th class="cell100 column8">Address</th>
+										<th class="cell100 column5">Checkout Date/Time</th>
+									</tr>
+								</thead>
+								<tbody>
+								{% if cust %}
+									{% for b in cust %}
+									<tr class="row100 body">
+										<td class="cell100 column2">{{b.checkin_date}}-{{b.checkin_time}}</td>
+										<td class="cell100 column4">{{b.name}}</td>
+										<td class="cell100 column5">{{b.phone}}</td>
+										<td class="cell100 column6">{{b.address}}</td>
+										<td class="cell100 column7">{{b.checkout_date}}-{{b.checkout_time}}</td>
+									</tr>
+									{% endfor %}
+								{% endif %}
+								</tbody>
+							</table><br>
+						</div>
+					</div>
+				</div>
+				<h3>Total Number of customers: {{count}} <h3>
+		</div>
+	</div>
+	<script src="{% static 'dash/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'dash/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'dash/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'dash/vendor/select2/select2.min.js' %}"></script>
+	<script src="{% static 'dash/vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+
+			$(this).on('ps-x-reach-start', function(){
+				$(this).parent().find('.table100-firstcol').removeClass('shadow-table100-firstcol');
+			});
+
+			$(this).on('ps-scroll-x', function(){
+				$(this).parent().find('.table100-firstcol').addClass('shadow-table100-firstcol');
+			});
+
+		});
+	</script>
+	<script src="{% static 'dash/js/main.js' %}"></script>
+</body>
 </html>

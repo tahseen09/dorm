@@ -5,3 +5,4 @@ myvenv
 db.sqlite3
 .DS_Store
 .vscode/*
+XDG_CACHE_HOME

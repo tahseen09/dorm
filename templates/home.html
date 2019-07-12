@@ -1,150 +1,145 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" >
-   <head>
-      <meta charset="UTF-8">
-      <title>HOME | AV DORMITORY</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-      <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
-      <meta name="msapplication-TileColor" content="#000">
-      <meta name="theme-color" content="#000">
-   </head>
-   <body>
-      <!-- Button trigger modal -->
-      <div class="container">
-         <br>
-         <center>
-            <button class="btn btn-primary btn-lg" href="#signup" data-toggle="modal" data-target=".log-sign">Check In / Check Out</button>
-            <br>
-            {% if msg %}
-               <h2>{{msg}}</h2>
-            {% endif %}
-         </center>
-         <br>
-        
-      </div>
-      <!-- Modal -->
-      <div class="modal fade bs-modal-sm log-sign" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-         <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-               <div class="bs-example bs-example-tabs">
-                  <ul id="myTab" class="nav nav-tabs">
-                     <li id="tab1" class=" active tab-style login-shadow "><a href="#signin" data-toggle="tab">Check Out</a></li>
-                     <li id="tab2" class=" tab-style "><a href="#signup" data-toggle="tab">Check In</a></li>
-                  </ul>
-                  <br>
-                  
-               </div>
-               <div class="modal-body">
-                  <div id="myTabContent" class="tab-content">
-                     <div class="tab-pane fade active in" id="signin">
-                        <form class="form-horizontal" method="post" action="">
-                           {% csrf_token %}
-                           <fieldset>
-                              <!-- Sign In Form -->
-                              <!-- Text input-->
-                              <div class="group">
-                                 <input required="" name="bed" class="input" type="text"><span class="highlight"></span><span class="bar"></span>
-                                 <label class="label" for="bed ">Bed No.</label>
-                              </div>
-                              <input type="hidden" name="type" value = "out" >
+<html lang="en">
 
-                              <!-- Button -->
-                              <div class="control-group">
-                                 <label class="control-label" for="signin"></label>
-                                 <div class="controls">
-                                 <button id="signin" type="submit" name="signin" class="btn btn-primary btn-block">Check Out</button>                                 </div>
-                              </div>
-                           </fieldset>
-                        </form>
-                     </div>
-                     <div class="tab-pane fade" id="signup">
-                        <form class="form-horizontal" method="post" action="">
-                           {% csrf_token %}
-                           <fieldset>
-                              <!-- Sign Up Form -->
-                              <!-- Text input-->
-                              <div class="group">
-                                 <input required="" name="name" class="input" type="text"><span class="highlight"></span><span class="bar"></span>
-                                 <label class="label" for="date">Name</label>
-                              </div>
-                              <!-- Password input-->
-                              <div class="group">
-                                 <input required="" name="bed" class="input" type="text"><span class="highlight"></span><span class="bar"></span>
-                                 <label class="label" for="bed ">Bed No.</label>
-                              </div>
-                              <!-- Text input-->
-                              <div class="group">
-                                 <input required="" name="phone" class="input" type="number"><span class="highlight"></span><span class="bar"></span>
-                                 <label class="label" for="phone">Phone No.</label>
-                              </div>
-                              <div class="group2">
-                                 <input required="" name="address" class="input" type="text"><span class="highlight"></span><span class="bar"></span>
-                                 <label class="label" for="address">Address</label>
-                              </div>
-                              <div class="group">
-                                 <input type="file" name="fileToUpload" id="fileToUpload">
-                              </div>
-                              <input type="hidden" name="type" value = "in" >
-                              <!-- Button -->
-                              <div class="control-group">
-                                 <label class="control-label" for="confirmsignup"></label>
-                                 <div class="controls">
-                                    <button type="submit" id="confirmsignup" name="confirmsignup" class="btn btn-primary btn-block">Check In</button>
-                                 </div>
-                              </div>
-                           </fieldset>
-                        </form>
-                        {% if messages %}
-                           <ul class="messages">
-                              {% for message in messages %}
-                                 <li class="{{ message.tags }}">{{ message }}</li>
-                              {% endfor %}
-                           </ul>
-                        {% endif %}
-                     </div>
-                  </div>
-               </div>
-               <div class="modal-footer">
-                  <center>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </center>
-                  </div>
-            </div>
-         </div>
-      </div>
-      <!--modal2-->
-      <div class="modal fade bs-modal-sm" id="forgot-password" tabindex="0" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-         <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">Password will be sent to your email</h4>
-               </div>
-               <div class="modal-body">
-                  <form class="form-horizontal">
-                     <fieldset>
-                        <div class="group">
-                           <input required="" class="input" type="text"><span class="highlight"></span><span class="bar"></span>
-                           <label class="label" for="date">Email address</label>
-                        </div>
-                        <div class="control-group">
-                           <label class="control-label" for="forpassword"></label>
-                           <div class="controls">
-                              <button id="forpasswodr" name="forpassword" class="btn btn-primary btn-block">Send</button>
-                           </div>
-                        </div>
-                     </fieldset>
-                  </form>
-               </div>
-            </div>
-         </div>
-      </div>
-      <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-      <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
-      <script  src="{% static 'home/js/index.js' %}"></script>
+<head>
+   <meta charset="UTF-8">
+   <title>HOME | AV DORMITORY</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+   <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+   <meta name="msapplication-TileColor" content="#000">
+   <meta name="theme-color" content="#000">
+</head>
+
+<body>
+   <!-- Button trigger modal -->
+   <div class="container">
       <br>
-      <p><a href="{% url 'logout' %}">logout</a></p>
-   </body>
+      <center>
+         <button class="btn btn-primary btn-lg" href="#signup" data-toggle="modal" data-target=".log-sign">Check In /
+            Check Out</button>
+         <h1>&nbsp;</h1>
+         
+          <a href="{% url 'dashboard' %}"  class="btn btn-primary btn-lg" >Dashboard</a>
+         {% if msg %}
+         <h2>{{msg}}</h2>
+         {% endif %}
+      </center>
+      <br>
+
+   </div>
+   <!-- Modal -->
+   <div class="modal fade bs-modal-sm log-sign" id="myModal" tabindex="-1" role="dialog"
+      aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+         <div class="modal-content">
+            <div class="bs-example bs-example-tabs">
+               <ul id="myTab" class="nav nav-tabs">
+                  <li id="tab1" class=" active tab-style login-shadow "><a href="#signin" data-toggle="tab">Check
+                        Out</a></li>
+                  <li id="tab2" class=" tab-style "><a href="#signup" data-toggle="tab">Check In</a></li>
+               </ul>
+               <br>
+
+            </div>
+            <div class="modal-body">
+               <div id="myTabContent" class="tab-content">
+                  <div class="tab-pane fade active in" id="signin">
+                     <form class="form-horizontal" method="post" action="">
+                        {% csrf_token %}
+                        <fieldset>
+                           <!-- Sign In Form -->
+                           <!-- Text input-->
+                           <div class="group">
+                              <input required="" name="bed" class="input" type="text"><span
+                                 class="highlight"></span><span class="bar"></span>
+                              <label class="label" for="bed ">Bed No.</label>
+                           </div>
+                           <input type="hidden" name="type" value="out">
+
+                           <!-- Button -->
+                           <div class="control-group">
+                              <label class="control-label" for="signin"></label>
+                              <div class="controls">
+                                 <button id="signin" type="submit" name="signin" class="btn btn-primary btn-block">Check
+                                    Out</button> </div>
+                           </div>
+                        </fieldset>
+                     </form>
+                  </div>
+                  <div class="tab-pane fade" id="signup">
+                     <form class="form-horizontal" method="post" action="">
+                        {% csrf_token %}
+                        <fieldset>
+                           <!-- Sign Up Form -->
+                           <!-- Text input-->
+                           <div class="group">
+                              <input required="" name="name" class="input" type="text"><span
+                                 class="highlight"></span><span class="bar"></span>
+                              <label class="label" for="date">Name</label>
+                           </div>
+                           <!-- Password input-->
+                           <div class="group">
+                              <input required="" name="bed" class="input" type="text"><span
+                                 class="highlight"></span><span class="bar"></span>
+                              <label class="label" for="bed ">Bed No.</label>
+                           </div>
+                           <!-- Text input-->
+                           <div class="group">
+                              <input required="" name="phone" class="input" type="number"><span
+                                 class="highlight"></span><span class="bar"></span>
+                              <label class="label" for="phone">Phone No.</label>
+                           </div>
+                           <div class="group2">
+                              <input required="" name="address" class="input" type="text"><span
+                                 class="highlight"></span><span class="bar"></span>
+                              <label class="label" for="address">Address</label>
+                           </div>
+                           <div class="group">
+                              <input required="" name="manager" class="input" type="text"><span
+                                 class="highlight"></span><span class="bar"></span>
+                              <label class="label" for="date">Manager</label>
+                           </div>
+                           <div class="group">
+                              <input type="file" name="image" id="image">
+                           </div>
+                           <input type="hidden" name="type" value="in">
+                           <!-- Button -->
+                           <div class="control-group">
+                              <label class="control-label" for="confirmsignup"></label>
+                              <div class="controls">
+                                 <button type="submit" id="confirmsignup" name="confirmsignup"
+                                    class="btn btn-primary btn-block">Check In</button>
+                              </div>
+                           </div>
+                        </fieldset>
+                     </form>
+                     {% if messages %}
+                     <ul class="messages">
+                        {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                     </ul>
+                     {% endif %}
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <center>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </center>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!--modal2-->
+   
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+   <script src="{% static 'home/js/index.js' %}"></script>
+   <br>
+   
+</body>
+
 </html>
