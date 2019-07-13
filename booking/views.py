@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from .models import customer
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-import datetime
+from datetime import datetime
 
 
 
@@ -10,41 +10,49 @@ import datetime
 def checkin(request):
     msg = None
     if request.method == "POST":
+        now = datetime.now()
         t = request.POST.get("type")
         if t == "in":
             name = request.POST.get("name")
             address = request.POST.get("address")
             bed = request.POST.get("bed")
             phone = request.POST.get("phone")
-            manager = request.POST.get("manager")
             date = request.POST.get("date")
             time = request.POST.get("time")
             image = request.POST.get("image")
-            c = customer(name=name,
-                         address=address,
-                         bed=bed,
-                         phone=phone,
-                         present=True,
-                         manager=manager,
-                         image=image,
-                         checkin_date=datetime.datetime.now(),
-                         checkin_time=datetime.datetime.now()
-                         )
-            c.save()
-            return HttpResponse("Customer Created")
+            if customer.objects.filter(bed=bed,present=True):
+                msg="Sorry, that bed is already occupied"
+            else:
+                c = customer(name=name,
+                            address=address,
+                            bed=bed,
+                            phone=phone,
+                            present=True,
+                            image=image,
+                            checkin_date=now.strftime("%Y-%m-%d"),
+                            checkin_time=now.strftime("%H:%M:%S")
+                            )
+                c.save()
+                msg = "Customer on bed:"+bed+" checked in!"
+            context = {"msg":msg}
+            return render(request,"home.html",context)
 
         if t == "out":
             context = {}
+            print(str(now))
             bed = request.POST.get("bed")
+            manager = request.POST.get("manager")
             c = customer.objects.filter(bed=bed,
                                         present=True)
-            context['det'] = customer.objects.filter(bed=bed,
-                                                     checkin_date=c[0].checkin_date)
-            c = c.update(present=False,
-                         checkout_date=datetime.datetime.now(),
-                         checkout_time=datetime.datetime.now()
-                         )
-            if c:
+            if c:                       
+                context['det'] = customer.objects.filter(bed=bed,
+                                                        checkin_date=c[0].checkin_date)
+                c = c.update(present=False,
+                            manager= manager,
+                            checkout_date=now.strftime("%Y-%m-%d"),
+                            checkout_time=now.strftime("%H:%M:%S")
+                            )
+        
                 context['msg'] = "Customer with bed number:"+bed+" checked out"
                 return render(request, "bill.html", context)
             else:

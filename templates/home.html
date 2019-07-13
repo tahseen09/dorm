@@ -46,7 +46,7 @@
             <div class="modal-body">
                <div id="myTabContent" class="tab-content">
                   <div class="tab-pane fade active in" id="signin">
-                     <form class="form-horizontal" method="post" action="">
+                     <form class="form-horizontal" method="post" action="" enctype='multipart/form-data'>
                         {% csrf_token %}
                         <fieldset>
                            <!-- Sign In Form -->
@@ -55,6 +55,11 @@
                               <input required="" name="bed" class="input" type="text"><span
                                  class="highlight"></span><span class="bar"></span>
                               <label class="label" for="bed ">Bed No.</label>
+                           </div>
+                           <div class="group">
+                              <input required="" name="manager" class="input" type="text"><span
+                                 class="highlight"></span><span class="bar"></span>
+                              <label class="label" for="date">Manager</label>
                            </div>
                            <input type="hidden" name="type" value="out">
 
@@ -97,11 +102,6 @@
                               <label class="label" for="address">Address</label>
                            </div>
                            <div class="group">
-                              <input required="" name="manager" class="input" type="text"><span
-                                 class="highlight"></span><span class="bar"></span>
-                              <label class="label" for="date">Manager</label>
-                           </div>
-                           <div class="group">
                               <input type="file" name="image" id="image">
                            </div>
                            <input type="hidden" name="type" value="in">
@@ -115,13 +115,6 @@
                            </div>
                         </fieldset>
                      </form>
-                     {% if messages %}
-                     <ul class="messages">
-                        {% for message in messages %}
-                        <li class="{{ message.tags }}">{{ message }}</li>
-                        {% endfor %}
-                     </ul>
-                     {% endif %}
                   </div>
                </div>
             </div>
