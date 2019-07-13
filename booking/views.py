@@ -41,27 +41,35 @@ def checkin(request):
 
         if t == "out":
             context = {}
-            print(str(now))
             bed = request.POST.get("bed")
-            manager = request.POST.get("manager")
-            c = customer.objects.filter(bed=bed,
-                                        present=True)
-            d = customer.objects.all().filter().order_by('checkout_date').last()
+            c = customer.objects.filter(bed=bed,present=True)
             if c:
-                if d:
+                manager = request.POST.get("manager")
+                payment_type = request.POST.get("payment_type")
+                day_price = request.POST.get("day_price")
+                days = request.POST.get("days")
+                total_price = int(day_price)*int(days)
+
+                try: 
+                    d = customer.objects.all().filter().order_by('checkout_date').last()
                     last_invoice = int(d.invoice[2:])
                     invoice = "AV"+str(last_invoice+1)
-                else:
+                except:
                     invoice="AV1"
+
+                print(invoice)
                 c = c.update(present=False,
                             manager= manager,
                             checkout_date=now.strftime("%Y-%m-%d"),
                             checkout_time=now.strftime("%H:%M:%S"),
-                            invoice=invoice
+                            invoice=invoice,
+                            day_price=day_price,
+                            payment_type=payment_type,
+                            total_price=total_price,
+                            days=days
                             )
 
-                context['det'] = customer.objects.filter(bed=bed,
-                                                        checkin_date=c[0].checkin_date)
+                context['det'] = customer.objects.filter(bed=bed,checkout_date = now.strftime("%Y-%m-%d"), checkout_time = now.strftime("%H:%M:%S"))
                 
         
                 context['msg'] = "Customer with bed number:"+bed+" checked out"
@@ -85,17 +93,15 @@ def dashboard(request):
         elif start_date:
             cust = customer.objects.all().filter(checkin_date__gte=start_date)
             count = cust.count()
-            context = {"cust": cust, "count":count}
 
         elif end_date:
             cust = customer.objects.all().filter(checkin_date__lte = end_date)
             count = cust.count()
-            context = {"cust": cust, "count":count}
     
         else:
             cust = customer.objects.all().filter(present=True)
             count = cust.count()
-            context = {"cust": cust}
+        context = {"cust": cust,"count":count}
         return render(request, "index.html", context)
 
     else:

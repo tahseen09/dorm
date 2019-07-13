@@ -140,12 +140,13 @@
                             </td>
                             
                             <td>
-                                <strong> Customer Name </strong>: <br>
-                               <strong> Customer Address</strong> : <br>
-                                <strong>Check In Date / Time</strong> :<br>
-                               <strong> Check Out Date / Time </strong> : <br>
-                               <strong> Bed No : </strong>
-
+                            {% for i in det %}
+                                <strong> Customer Name </strong>:{{i.name}} <br>
+                               <strong> Customer Address</strong> :{{i.address}} <br>
+                                <strong>Check In Date / Time</strong> :{{i.checkin_date}}-{{i.checkin_time}}<br>
+                               <strong> Check Out Date / Time </strong> :{{i.checkout_date}}-{{i.checkout_time}} <br>
+                               <strong> Bed No :{{i.bed}} </strong>
+                            {% endfor %}
                             </td>
                         </tr>
                     </table>
@@ -163,30 +164,27 @@
                     Price/Day
                 </td>
             </tr>
-            
+        
             <tr class="item">
+            {% for i in det %}
                 <td>
-                    3
+                    {{i.days}}
                 </td>
                 
                 <td>
-                    190
+                    {{i.day_price}}
                 </td>
+            
+            {% endfor %}
             </tr>
-          
             
            
             
-            <tr class="total">
-                <td></td>
-                
-                <td>
-                   Total: 570.00
-                </td>
-            </tr>
+            
 <tr class="heading">
+            {% for i in det %}
                 <td>
-                    Payment Method
+                    Payment Method 
                 </td>
                 
                 <td>
@@ -196,17 +194,18 @@
             
             <tr class="details">
                 <td>
-                    Cash 
+                    {{i.payment_type}}
                 </td>
-                
+                    {{i.total_price}}
                 <td>
-                    570
+                    
                 </td>
+            
             </tr>
         </table>
         <p style="text-align: center; font-size: 24px;">Thank You, Visit Again</p>
         <img src="static/images/paid.png" style="width: 100%; max-width: 150px;">
-        <h6>Receptionist <br> Manager Name here </h6>
+        <h6>Receptionist <br> {{i.manager}} </h6>
         <h1>&nbsp;</h1>
       <button type="button" class="btn btn-default d-print-none" onclick="window.print()">Print</button>
     </div> 
