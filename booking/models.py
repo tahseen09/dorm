@@ -13,3 +13,4 @@ class customer(models.Model):
     present = models.BooleanField(default=False, blank=False)
     checkout_date = models.DateField(blank=True, null=True)
     checkout_time = models.TimeField(blank=True, null=True)
+    invoice = models.CharField(max_length=30, blank=True, null=True)

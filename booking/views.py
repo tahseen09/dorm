@@ -46,14 +46,23 @@ def checkin(request):
             manager = request.POST.get("manager")
             c = customer.objects.filter(bed=bed,
                                         present=True)
-            if c:                       
-                context['det'] = customer.objects.filter(bed=bed,
-                                                        checkin_date=c[0].checkin_date)
+            d = customer.objects.all().filter().order_by('checkout_date').last()
+            if c:
+                if d:
+                    last_invoice = int(d.invoice[2:])
+                    invoice = "AV"+str(last_invoice+1)
+                else:
+                    invoice="AV1"
                 c = c.update(present=False,
                             manager= manager,
                             checkout_date=now.strftime("%Y-%m-%d"),
-                            checkout_time=now.strftime("%H:%M:%S")
+                            checkout_time=now.strftime("%H:%M:%S"),
+                            invoice=invoice
                             )
+
+                context['det'] = customer.objects.filter(bed=bed,
+                                                        checkin_date=c[0].checkin_date)
+                
         
                 context['msg'] = "Customer with bed number:"+bed+" checked out"
                 return render(request, "bill.html", context)
@@ -68,6 +77,7 @@ def dashboard(request):
     if request.method == "POST":
         start_date = request.POST.get("startdate")
         end_date = request.POST.get("enddate")
+        context = None
         if start_date and end_date:
             cust = customer.objects.all().filter(checkin_date__gte = start_date, checkin_date__lte = end_date)
             count = cust.count()
