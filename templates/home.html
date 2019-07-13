@@ -74,7 +74,7 @@
                      </form>
                   </div>
                   <div class="tab-pane fade" id="signup">
-                     <form class="form-horizontal" method="post" action="">
+                     <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
                         {% csrf_token %}
                         <fieldset>
                            <!-- Sign Up Form -->
@@ -102,7 +102,7 @@
                               <label class="label" for="address">Address</label>
                            </div>
                            <div class="group">
-                              <input type="file" name="image" id="image">
+                              <input type="file" name="image" id="image" >
                            </div>
                            <input type="hidden" name="type" value="in">
                            <!-- Button -->

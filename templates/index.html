@@ -84,6 +84,7 @@
 										<th class="cell100 column4">Phone Number</th>
 										<th class="cell100 column8">Address</th>
 										<th class="cell100 column5">Checkout Date/Time</th>
+										<th class="cell100 column5">Image</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -95,6 +96,7 @@
 										<td class="cell100 column5">{{b.phone}}</td>
 										<td class="cell100 column6">{{b.address}}</td>
 										<td class="cell100 column7">{{b.checkout_date}}-{{b.checkout_time}}</td>
+										<td class="cell100 column7"><a href="{{b.image.url}}">Guest Image</td>
 									</tr>
 									{% endfor %}
 								{% endif %}

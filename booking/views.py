@@ -3,6 +3,7 @@ from .models import customer
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from datetime import datetime
+from django.conf import settings
 
 
 
@@ -19,7 +20,8 @@ def checkin(request):
             phone = request.POST.get("phone")
             date = request.POST.get("date")
             time = request.POST.get("time")
-            image = request.POST.get("image")
+            if request.FILES:
+                image = request.FILES["image"]
             if customer.objects.filter(bed=bed,present=True):
                 msg="Sorry, that bed is already occupied"
             else:
