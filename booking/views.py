@@ -43,12 +43,16 @@ def checkin(request):
             context = {}
             bed = request.POST.get("bed")
             c = customer.objects.filter(bed=bed,present=True)
+            context['checkin'] = str(c[0].checkin_date)+'/'+str(c[0].checkin_time)
+            context['name'] = str(c[0].name)
+            context['address'] = str(c[0].address)
+            context['bed']=bed
             if c:
                 manager = request.POST.get("manager")
                 payment_type = request.POST.get("payment_type")
                 day_price = request.POST.get("day_price")
-                days = request.POST.get("days")
-                total_price = int(day_price)*int(days)
+                duration = request.POST.get("duration")
+                total_price = int(day_price)*int(duration)
 
                 try: 
                     d = customer.objects.all().filter().order_by('checkout_date').last()
@@ -56,22 +60,27 @@ def checkin(request):
                     invoice = "AV"+str(last_invoice+1)
                 except:
                     invoice="AV1"
+                checkout_date=now.strftime("%Y-%m-%d")
+                checkout_time=now.strftime("%H:%M:%S")
+                c.update(present=False, 
+                        manager=manager,
+                        checkout_date=checkout_date,
+                        checkout_time=checkout_time,
+                        invoice=invoice,
+                        day_price=day_price,
+                        payment_type=payment_type,
+                        total_price=total_price,
+                        duration=duration)
 
-                print(invoice)
-                c = c.update(present=False,
-                            manager= manager,
-                            checkout_date=now.strftime("%Y-%m-%d"),
-                            checkout_time=now.strftime("%H:%M:%S"),
-                            invoice=invoice,
-                            day_price=day_price,
-                            payment_type=payment_type,
-                            total_price=total_price,
-                            days=days
-                            )
 
-                context['det'] = customer.objects.filter(bed=bed,checkout_date = now.strftime("%Y-%m-%d"), checkout_time = now.strftime("%H:%M:%S"))
-                
-        
+                #context['det'] = customer.objects.filter(bed=bed,checkout_date = now.strftime("%Y-%m-%d"), checkout_time = now.strftime("%H:%M:%S")                
+                #context['checkin'] = str(c[0].checkin_date)+'/'+str(c[0].checkin_time)
+                context['checkout'] = checkout_date+'/'+checkout_time
+                context['day_price'] = day_price
+                context["payment_type"] = payment_type
+                context['total_price'] = total_price
+                context['days'] = duration
+                context['manager'] = manager
                 context['msg'] = "Customer with bed number:"+bed+" checked out"
                 return render(request, "bill.html", context)
             else:
