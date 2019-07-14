@@ -81,6 +81,7 @@ def checkin(request):
                 context['total_price'] = total_price
                 context['days'] = duration
                 context['manager'] = manager
+                context["invoice"] = invoice
                 context['msg'] = "Customer with bed number:"+bed+" checked out"
                 return render(request, "bill.html", context)
             else:
