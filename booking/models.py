@@ -15,7 +15,7 @@ class customer(models.Model):
     checkout_time = models.TimeField(blank=True, null=True)
     invoice = models.CharField(max_length=30, blank=True, null=True)
     payment_type = models.CharField(max_length=30, blank=True, null=True)
-    days = models.IntegerField(null=True, blank=True)
+    duration = models.CharField(default='0',max_length=10,null=True, blank=True)
     day_price = models.IntegerField(null=True, blank=True)
     total_price = models.IntegerField(null=True, blank=True)
     manager = models.CharField(max_length=30, blank=True, null=True)

@@ -117,8 +117,8 @@
                             </td>
                             
                             <td>
-                                <strong>Invoice No : </strong> <br>
-                                <strong>Date :</strong>
+                                <strong>Invoice No : {{invoice}}  </strong> <br>
+                                <strong>Date :{{checkout}}</strong>
                             </td>
                         </tr>
                     </table>
@@ -140,13 +140,13 @@
                             </td>
                             
                             <td>
-                            {% for i in det %}
-                                <strong> Customer Name </strong>:{{i.name}} <br>
-                               <strong> Customer Address</strong> :{{i.address}} <br>
-                                <strong>Check In Date / Time</strong> :{{i.checkin_date}}-{{i.checkin_time}}<br>
-                               <strong> Check Out Date / Time </strong> :{{i.checkout_date}}-{{i.checkout_time}} <br>
-                               <strong> Bed No :{{i.bed}} </strong>
-                            {% endfor %}
+                            
+                                <strong> Customer Name </strong>:{{name}} <br>
+                               <strong> Customer Address</strong>: <br>{{address}} <br>
+                                <strong>Check In Date / Time</strong> :{{checkin}}<br>
+                               <strong> Check Out Date / Time </strong> :{{checkout}} <br>
+                               <strong> Bed No :{{bed}} </strong>
+                            
                             </td>
                         </tr>
                     </table>
@@ -166,46 +166,44 @@
             </tr>
         
             <tr class="item">
-            {% for i in det %}
                 <td>
-                    {{i.days}}
+                    {{days}}
                 </td>
                 
                 <td>
-                    {{i.day_price}}
+                    {{day_price}}
                 </td>
             
-            {% endfor %}
+            
             </tr>
             
            
             
             
 <tr class="heading">
-            {% for i in det %}
-                <td>
-                    Payment Method 
-                </td>
-                
-                <td>
-                    Total
-                </td>
-            </tr>
+        <td>
+            Payment Method 
+        </td>
+        
+        <td>
+            Total
+        </td>
+</tr>
+    
+<tr ="details">
+        <td>
+            {{payment_type}}
+        </td>
             
-            <tr class="details">
-                <td>
-                    {{i.payment_type}}
-                </td>
-                    {{i.total_price}}
-                <td>
-                    
-                </td>
-            
-            </tr>
+        <td>
+           {{total_price}}
+        </td>
+    
+</tr>
         </table>
         <p style="text-align: center; font-size: 24px;">Thank You, Visit Again</p>
         <img src="static/images/paid.png" style="width: 100%; max-width: 150px;">
-        <h6>Receptionist <br> {{i.manager}} </h6>
+        <h6>Receptionist - {{manager}} </h6>
         <h1>&nbsp;</h1>
       <button type="button" class="btn btn-default d-print-none" onclick="window.print()">Print</button>
     </div> 
