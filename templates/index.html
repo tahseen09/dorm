@@ -34,11 +34,9 @@
 			</button></a>
 			<div class="wrap-table100">
 		<form style="color: white;" method="POST" action="">
-			ROOM NO: <input type="text" name="room" placeholder="ROOM Number" style=" width: 200px; height: 60px; border-radius: 5px; text-align: center;">
-				<br>
+			<!--ROOM NO: <input type="text" name="room" placeholder="ROOM Number" style=" width: 200px; height: 60px; border-radius: 5px; text-align: center;"> -->
 				{% csrf_token %}
 				&nbsp;<br>
-				
 				Start DATE: {% if start_date %}{{start_date}}{% endif %} <input type="date" name="startdate" placeholder="YYYY-MM-DD" style=" width: 200px; height: 60px; border-radius: 5px; text-align: center;">
 				<br>
 				End DATE: {% if end_date %}{{end_date}}{% endif %}<input type="date" name="enddate" placeholder="YYYY-MM-DD" style=" width: 200px; height: 60px; border-radius: 5px; text-align: center;">
