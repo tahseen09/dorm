@@ -71,28 +71,32 @@
 							<table>
 								<thead>
 									<tr class="row100 head">
-										<th class="cell100 column2">Checkin Date/Time</th>
-										<th class="cell100 column3">Name</th>
+										<th class="cell100 column7">Checkin Date/Time</th>
+										<th class="cell100 column7">Name</th>
 										<th class="cell100 column4">Phone Number</th>
-										<th class="cell100 column8">Address</th>
-										<th class="cell100 column5">Checkout Date/Time</th>
 										<th class="cell100 column5">Image</th>
-										<th class="cell100 column4">Phone Number</th>
-										<th class="cell100 column8">Address</th>
+										<th class="cell100 column7">Checkout Date/Time</th>
+										<th class="cell100 column4">Duration(days)</th>
+										<th class="cell100 column4">Total Cost</th>
+										<td class="cell100 column4">Invoice</td>
+										<th class="cell100 column7">Receptionist</th>
+										<th class="cell100 column7">Address</th>
 									</tr>
 								</thead>
 								<tbody>
 								{% if cust %}
 									{% for b in cust %}
 									<tr class="row100 body">
-										<td class="cell100 column2">{{b.checkin_date}}-{{b.checkin_time}}</td>
-										<td class="cell100 column4">{{b.name}}</td>
-										<td class="cell100 column5">{{b.phone}}</td>
-										<td class="cell100 column6">{{b.address}}</td>
+										<td class="cell100 column7">{{b.checkin_date}}-{{b.checkin_time}}</td>
+										<td class="cell100 column7">{{b.name}}</td>
+										<td class="cell100 column4">{{b.phone}}</td>
+										<td class="cell100 column5"><a href="{{b.image.url}}">Guest Image</a></td>
 										<td class="cell100 column7">{{b.checkout_date}}-{{b.checkout_time}}</td>
-										<td class="cell100 column7"><a href="{{b.image.url}}">Guest Image</td>
-										<td class="cell100 column9">{{b.name}}</td>
-										<td class="cell100 column10">{{b.phone}}</td>
+										<td class="cell100 column4">{{b.duration}}</td>
+										<td class="cell100 column4">{{b.total_cost}}</td>
+										<td class="cell100 column4">{{b.invoice}}</td>
+										<td class="cell100 column7">{{b.manager}}</td>
+										<td class="cell100 column7">{{b.address}}</td>
 									</tr>
 									{% endfor %}
 								{% endif %}

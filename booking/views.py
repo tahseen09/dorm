@@ -73,8 +73,6 @@ def checkin(request):
                         duration=duration)
 
 
-                #context['det'] = customer.objects.filter(bed=bed,checkout_date = now.strftime("%Y-%m-%d"), checkout_time = now.strftime("%H:%M:%S")                
-                #context['checkin'] = str(c[0].checkin_date)+'/'+str(c[0].checkin_time)
                 context['checkout'] = checkout_date+'/'+checkout_time
                 context['day_price'] = day_price
                 context["payment_type"] = payment_type
