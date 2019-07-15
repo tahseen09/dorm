@@ -19,3 +19,7 @@ class customer(models.Model):
     day_price = models.IntegerField(null=True, blank=True)
     total_price = models.IntegerField(null=True, blank=True)
     manager = models.CharField(max_length=30, blank=True, null=True)
+
+    def __str__(self):
+        show = str(self.bed)+'|'+str(self.checkin_date)+'|'+str(self.checkin_time)
+        return show

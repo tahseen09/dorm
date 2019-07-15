@@ -43,7 +43,7 @@ def checkin(request):
             context = {}
             bed = request.POST.get("bed")
             c = customer.objects.filter(bed=bed,present=True)
-            context['checkin'] = str(c[0].checkin_date)+'/'+str(c[0].checkin_time)
+            context['checkin'] = str(c[0].checkin_date)+'||'+str(c[0].checkin_time)
             context['name'] = str(c[0].name)
             context['address'] = str(c[0].address)
             context['bed']=bed
@@ -73,7 +73,7 @@ def checkin(request):
                         duration=duration)
 
 
-                context['checkout'] = checkout_date+'/'+checkout_time
+                context['checkout'] = checkout_date+'||'+checkout_time
                 context['day_price'] = day_price
                 context["payment_type"] = payment_type
                 context['total_price'] = total_price
