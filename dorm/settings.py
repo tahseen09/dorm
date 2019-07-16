@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'kp+nvk70!8v5lr^%f1hj4#c&r5_haxjmr@95-h5jpet4(8ql+^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -126,9 +126,9 @@ LOGOUT_REDIRECT_URL = 'dashboard'
 STATIC_URL = '/static/'
 
 # in case of dev, uncomment the below line
-STATICFILES_DIRS = (
+"""STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-)
+)"""
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 

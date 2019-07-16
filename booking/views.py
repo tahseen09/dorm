@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from datetime import datetime
 from django.conf import settings
-
+#from .utils import render_to_pdf
 
 
 @login_required
@@ -53,13 +53,10 @@ def checkin(request):
                 day_price = request.POST.get("day_price")
                 duration = request.POST.get("duration")
                 total_price = int(day_price)*int(duration)
-
-                try: 
-                    d = customer.objects.all().filter().order_by('checkout_date').last()
-                    last_invoice = int(d.invoice[2:])
-                    invoice = "AV"+str(last_invoice+1)
-                except:
-                    invoice="AV1"
+                
+                invoice=now.strftime("%m-%d")+'-'+bed+'-'+now.strftime("%H-%M")
+                print(invoice)
+                
                 checkout_date=now.strftime("%Y-%m-%d")
                 checkout_time=now.strftime("%H:%M:%S")
                 c.update(present=False, 
@@ -76,12 +73,15 @@ def checkin(request):
                 context['checkout'] = checkout_date+'||'+checkout_time
                 context['day_price'] = day_price
                 context["payment_type"] = payment_type
-                context['total_price'] = total_price
+                context['total_price'] = str(total_price)
                 context['days'] = duration
                 context['manager'] = manager
                 context["invoice"] = invoice
                 context['msg'] = "Customer with bed number:"+bed+" checked out"
+                #pdf = render_to_pdf('bill.html', context)
+                #return HttpResponse(pdf, content_type='application/pdf')
                 return render(request, "bill.html", context)
+
             else:
                 msg = "Customer doesn't exist"
                 return render(request, "home.html", {"msg": msg})
