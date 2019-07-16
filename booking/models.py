@@ -8,7 +8,7 @@ class customer(models.Model):
     phone = models.BigIntegerField(blank=True)
     address = models.CharField(max_length=100,blank=True)
     name = models.CharField(max_length=30,blank=True)
-    image = models.ImageField(blank=True,upload_to='media/')
+    #image = models.ImageField(blank=True,upload_to='media/')
     manager = models.CharField(max_length=30,blank=True)
     present = models.BooleanField(default=False, blank=False)
     checkout_date = models.DateField(blank=True, null=True)
