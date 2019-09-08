@@ -4,8 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from datetime import datetime
 from django.conf import settings
-#from .utils import render_to_pdf
-
 
 @login_required
 def checkin(request):
@@ -77,9 +75,7 @@ def checkin(request):
                 context['days'] = duration
                 context['manager'] = manager
                 context["invoice"] = invoice
-                context['msg'] = "Customer with bed number:"+bed+" checked out"
-                #pdf = render_to_pdf('bill.html', context)
-                #return HttpResponse(pdf, content_type='application/pdf')
+                
                 return render(request, "bill.html", context)
 
             else:
