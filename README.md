@@ -1,5 +1,7 @@
 # dorm
 
+###### This project is intended to be used for dorms or hotels which provides accomodation.
+
 ## Technology Stack:
 ### Backend
 * #### Django(Python3)
